@@ -1,56 +1,77 @@
+using Core.Interfaces;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace core.Controllers;
+namespace Core.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 public class CoursesController : ControllerBase
 {
-    // רשימת קורסים לדוגמה בזיכרון (בהמשך אפשר להחליף בבסיס נתונים)
-    private static readonly List<Course> Courses = new()
+    private readonly ICourseService courseService;
+
+    public CoursesController(ICourseService courseService)
     {
-        new Course
-        {
-            Id = 1,
-            Name = "שם קורס 1",
-            Description = "טקסט לדוגמה",
-            Credits = 3,
-            TeacherName = "שם מלא 1"
-        },
-        new Course
-        {
-            Id = 2,
-            Name = "שם קורס 2",
-            Description = "טקסט לדוגמה",
-            Credits = 4,
-            TeacherName = "שם מלא 2"
-        },
-        new Course
-        {
-            Id = 3,
-            Name = "שם קורס 3",
-            Description = "טקסט לדוגמה",
-            Credits = 2,
-            TeacherName = "שם מלא 3"
-        }
-    };
+        this.courseService = courseService;
+    }
 
     // GET: api/courses
     [HttpGet]
     public ActionResult<IEnumerable<Course>> GetAll()
     {
-        return Ok(Courses);
+        return Ok(courseService.GetAll());
     }
 
     // GET: api/courses/1
     [HttpGet("{id}")]
     public ActionResult<Course> GetById(int id)
     {
-        var course = Courses.FirstOrDefault(c => c.Id == id);
+        var course = courseService.Get(id);
         if (course is null)
         {
             return NotFound();
         }
         return Ok(course);
+    }
+
+    // POST: api/courses
+    [HttpPost]
+    public ActionResult<Course> Create(Course course)
+    {
+        courseService.Add(course);
+        return CreatedAtAction(nameof(GetById), new { id = course.Id }, course);
+    }
+
+    // PUT: api/courses/1
+    [HttpPut("{id}")]
+    public IActionResult Update(int id, Course course)
+    {
+        if (id != course.Id)
+        {
+            return BadRequest();
+        }
+
+        var existing = courseService.Get(id);
+        if (existing is null)
+        {
+            return NotFound();
+        }
+
+        courseService.Update(course);
+        return NoContent();
+    }
+
+    // DELETE: api/courses/1
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        var course = courseService.Get(id);
+        if (course is null)
+        {
+            return NotFound();
+        }
+
+        courseService.Delete(id);
+        return Ok(courseService.Count);
     }
 }

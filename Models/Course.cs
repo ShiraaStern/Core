@@ -1,4 +1,6 @@
-namespace core;
+using System.Text.Json.Serialization;
+
+namespace Core.Models;
 
 public class Course
 {

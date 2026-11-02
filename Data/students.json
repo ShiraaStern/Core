@@ -1,0 +1,14 @@
+[
+  {
+    "Id": 1,
+    "FullName": "שם מלא 4",
+    "CourseId": 1,
+    "Grade": 88
+  },
+  {
+    "Id": 2,
+    "FullName": "שם מלא 5",
+    "CourseId": 2,
+    "Grade": 92
+  }
+]

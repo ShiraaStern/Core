@@ -1,0 +1,5 @@
+[
+  { "id": 1, "name": "שם קורס 1", "description": "טקסט לדוגמה", "credits": 3, "teacherName": "שם מלא 1" },
+  { "id": 2, "name": "שם קורס 2", "description": "טקסט לדוגמה", "credits": 4, "teacherName": "שם מלא 2" },
+  { "id": 3, "name": "שם קורס 3", "description": "טקסט לדוגמה", "credits": 2, "teacherName": "שם מלא 3" }
+]
