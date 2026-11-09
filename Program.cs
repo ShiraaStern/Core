@@ -11,6 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+app.UseErrorHandling();
 
 if (app.Environment.IsDevelopment())
 {

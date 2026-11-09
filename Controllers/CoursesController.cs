@@ -33,6 +33,11 @@ public class CoursesController : ControllerBase
         }
         return Ok(course);
     }
+    // [HttpGet("test-error")]
+    // public IActionResult TestError()
+    // {
+    // throw new Exception("test");
+    // }
 
     // POST: api/courses
     [HttpPost]
